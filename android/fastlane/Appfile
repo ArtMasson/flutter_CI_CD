@@ -1,0 +1,2 @@
+json_key_file("C:/Users/arthu/Downloads/fastlane-play-key.json")
+package_name("com.massonlabs.calculator") 

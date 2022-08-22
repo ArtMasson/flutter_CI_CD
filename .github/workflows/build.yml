@@ -8,7 +8,6 @@ on:
 
 jobs:    
   build:
-    name: Flutter app
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,11 +19,6 @@ jobs:
       - run: flutter pub get -v
       - run: flutter test
       - run: flutter build apk
-      - name: Push APK to Releases
-        uses: ncipollo/release-action@v1.10.0
-        with:
-          artifacts: "build/app/outputs/apk/debug/*.apk"
-          token: ${{ secrets.TOKEN }}
-      
+  
       
       

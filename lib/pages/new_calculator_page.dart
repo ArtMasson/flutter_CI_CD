@@ -3,6 +3,12 @@ import 'package:flutter_ci_cd/pages/helpers/app_colors.dart';
 
 import 'helpers/calculator_helper.dart';
 
+enum ButtonThemeEnum {
+  utility,
+  number,
+  operation,
+}
+
 class NewCalculatorPage extends StatefulWidget {
   const NewCalculatorPage({Key? key}) : super(key: key);
 
@@ -14,6 +20,7 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
   String expr = "";
   String initial = "0";
   double total = 0;
+  bool showSecondLabel = true;
 
   @override
   Widget build(BuildContext context) {
@@ -26,29 +33,32 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
             //Output Text
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(right: 35.0),
+                padding: const EdgeInsets.symmetric(horizontal: 35.0),
                 alignment: Alignment.bottomRight,
-                width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      expr.isNotEmpty ? expr : initial,
-                      style: const TextStyle(
-                        fontSize: 60.0,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.grayLightColor,
+                    FittedBox(
+                      child: Text(
+                        expr.isNotEmpty ? expr : initial,
+                        style: const TextStyle(
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.grayLightColor,
+                          overflow: TextOverflow.clip,
+                        ),
                       ),
                     ),
                     Visibility(
-                      visible: expr.isNotEmpty,
+                      visible: expr.isNotEmpty && showSecondLabel,
                       child: Text(
                         '= $total',
                         style: const TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.w500,
                           color: AppColors.textLightColor,
+                          overflow: TextOverflow.clip,
                         ),
                       ),
                     ),
@@ -59,29 +69,24 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
             const SizedBox(
               height: 70,
             ),
-            // Row 1 Button
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildBtn(
                   buttonText: 'C',
-                  textColor: AppColors.backgroundDark,
-                  backgroundColor: AppColors.grayLightColor,
+                  theme: ButtonThemeEnum.utility,
                 ),
                 _buildBtn(
                   buttonText: "π",
-                  textColor: AppColors.backgroundDark,
-                  backgroundColor: AppColors.grayLightColor,
+                  theme: ButtonThemeEnum.utility,
                 ),
                 _buildBtn(
                   buttonText: "%",
-                  textColor: AppColors.backgroundDark,
-                  backgroundColor: AppColors.grayLightColor,
+                  theme: ButtonThemeEnum.utility,
                 ),
                 _buildBtn(
                   buttonText: '\u00d7',
-                  textColor: AppColors.backgroundLight,
-                  backgroundColor: AppColors.orangeColor,
+                  theme: ButtonThemeEnum.operation,
                 ),
               ],
             ),
@@ -93,23 +98,19 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
               children: [
                 _buildBtn(
                   buttonText: '7',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '8',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '9',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '\u002f',
-                  textColor: AppColors.backgroundLight,
-                  backgroundColor: AppColors.orangeColor,
+                  theme: ButtonThemeEnum.operation,
                 ),
               ],
             ),
@@ -121,23 +122,19 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
               children: [
                 _buildBtn(
                   buttonText: '4',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '5',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '6',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '\u2212',
-                  textColor: AppColors.backgroundLight,
-                  backgroundColor: AppColors.orangeColor,
+                  theme: ButtonThemeEnum.operation,
                 ),
               ],
             ),
@@ -149,23 +146,19 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
               children: [
                 _buildBtn(
                   buttonText: '1',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '2',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '3',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '\u002b',
-                  textColor: AppColors.backgroundLight,
-                  backgroundColor: AppColors.orangeColor,
+                  theme: ButtonThemeEnum.operation,
                 ),
               ],
             ),
@@ -177,19 +170,20 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
               children: [
                 _buildBtn(
                   buttonText: '0',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                   expanded: true,
                 ),
                 _buildBtn(
                   buttonText: '.',
-                  textColor: AppColors.grayLightColor,
-                  backgroundColor: AppColors.grayColor,
+                  theme: ButtonThemeEnum.number,
                 ),
                 _buildBtn(
                   buttonText: '\u003d',
-                  textColor: AppColors.backgroundLight,
-                  backgroundColor: AppColors.orangeColor,
+                  theme: ButtonThemeEnum.operation,
+                  onPressed: () {
+                    showSecondLabel = false;
+                    expr = "";
+                  },
                 ),
               ],
             ),
@@ -204,10 +198,31 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
 
   _buildBtn({
     required String buttonText,
-    required Color textColor,
-    required Color backgroundColor,
+    required ButtonThemeEnum theme,
+    Function? onPressed,
     bool expanded = false,
   }) {
+    Color foregroundColor;
+    Color backgroundColor;
+    onPressed = onPressed ?? () {};
+
+    switch (theme) {
+      case ButtonThemeEnum.utility:
+        foregroundColor = AppColors.backgroundDark;
+        backgroundColor = AppColors.grayLightColor;
+        break;
+      case ButtonThemeEnum.operation:
+        foregroundColor = AppColors.backgroundLight;
+        backgroundColor = AppColors.orangeColor;
+        break;
+      default:
+        foregroundColor = AppColors.grayLightColor;
+        backgroundColor = AppColors.grayColor;
+        onPressed = () {
+          showSecondLabel = true;
+        };
+    }
+
     return Container(
       height: 80,
       width: expanded ? 200 : 80,
@@ -216,6 +231,7 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
       ),
       child: ElevatedButton(
         onPressed: () {
+          onPressed!();
           setState(() {
             expr = calcLogic(buttonText, context);
             total = getTotal();
@@ -227,7 +243,7 @@ class _NewCalculatorPageState extends State<NewCalculatorPage> {
               borderRadius: BorderRadius.circular(40),
             ),
           ),
-          foregroundColor: MaterialStateProperty.all(textColor),
+          foregroundColor: MaterialStateProperty.all(foregroundColor),
           backgroundColor: MaterialStateProperty.all(backgroundColor),
         ),
         child: Text(

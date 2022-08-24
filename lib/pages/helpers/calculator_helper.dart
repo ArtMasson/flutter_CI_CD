@@ -27,10 +27,17 @@ String calcLogic(String btnVal, BuildContext ctx) {
     case '+':
       expr = expr + btnVal;
       break;
+    // *
+    case '\u00d7':
+      expr = expr + btnVal;
+      break;
     case '\u2212':
       expr = expr + btnVal;
       break;
     case '/':
+      expr = expr + btnVal;
+      break;
+    case '.':
       expr = expr + btnVal;
       break;
     case '%':
